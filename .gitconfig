@@ -1,0 +1,32 @@
+[user]
+	email = gregoire.rocher@weezevent.com
+	name = Grégoire ROCHER
+[alias]
+	sta = status --short
+	parent = log -n 1
+    co = checkout
+    cob = checkout -b
+    cop = checkout --patch
+    addp = add --patch
+    resetp = reset --patch
+    index = diff --cached
+    graph = log --graph --oneline -n 10 --decorate
+    comf = commit --fixup
+    rl = reflog -n 10
+[core]
+	pager = 
+    excludesfile = ~/.gitignore
+[color]
+	ui = true
+[push]
+	default = simple
+[pull]
+    ff = yes
+[merge]
+    commit = no
+    tool = mymeld
+    conflictstyle = diff3
+[mergetool "mymeld"]
+    cmd = /usr/bin/meld "$LOCAL" "$BASE" "$REMOTE" -o "$MERGED"
+[diff]
+	noprefix = true
