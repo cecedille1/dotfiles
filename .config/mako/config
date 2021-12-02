@@ -1,0 +1,3 @@
+sort=+time
+default-timeout=10000
+anchor=top-center
