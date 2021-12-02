@@ -1,0 +1,31 @@
+#!/usr/bin/python3
+
+
+import sys
+import colorsys
+import random
+
+FOREGROUND = 10
+BACKGROUND = 11
+CARRET = 12
+
+COLOR_TEMPLATE = '\033]{:02};#{:02x}{:02x}{:02x}\007'
+SATURATION = 0.15
+LUMINOSITY = 0.25
+
+def set_color(r, g, b):
+    sys.stdout.write(COLOR_TEMPLATE.format(BACKGROUND, r, g, b))
+    sys.stdout.write(COLOR_TEMPLATE.format(FOREGROUND, 0xff, 0xff, 0xff))
+
+def hashed_color(hue):
+    hue = (34569 * hue % 255) / 255 # Deterministicly spread hue
+    return (int(x * 255) for x in colorsys.hls_to_rgb(hue,  LUMINOSITY, SATURATION))
+
+
+if '-r' in sys.argv:
+    set_color(0, 0, 0)
+elif len(sys.argv) == 1:
+    set_color(*hashed_color(random.random()))
+else:
+    hashsum = sum(ord(l) for arg in sys.argv[1:] for l in arg)
+    set_color(*hashed_color(hashsum % 255 / 255))
